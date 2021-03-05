@@ -5,6 +5,7 @@
 
 #include "Pessoa.h"
 #include "Prioridade.h"
+#include "Vacina.h"
 
 /**
 * Funcao main
@@ -20,6 +21,9 @@ int main()
     LISTA_PRIORIDADE * prioridade;
     prioridade = criaListaPrioridade();
 
+    LISTA_VACINA * vacinas;
+    vacinas = criaListaVacina();
+
     while ( entrada != '0' ) {
 
         printf("\n");
@@ -30,6 +34,8 @@ int main()
         printf("1 - Registrar uma pessoa\n");
         printf("2 - Remover uma pessoa\n");
         printf("3 - Liberar grupo de prioridade\n");
+        printf("4 - Registrar uma vacina\n");
+        printf("7 - Visualizar\n");
         printf("\n");
 
         scanf("%c", &entrada);
@@ -55,13 +61,12 @@ int main()
             liberaGrupo(prioridade, id_prioridade);
         }
 
-        int i;
-        for ( i = 0; i < povo->pos_livre; i++ ) {
-            printf("ID pessoa: %d\n", i);
-            printf("%s\n", povo->item[i].nome);
-            printf("%s\n", povo->item[i].cpf);
-            printf("%d\n", povo->item[i].prioridade);
-            printf("\n\n");
+        if ( entrada == '4' ) {
+            registraVacina(vacinas);
+        }
+
+        if ( entrada == '7' ) {
+            visualizar(vacinas);
         }
     }
 
@@ -69,4 +74,24 @@ int main()
     free(prioridade);
 
     return 1;
+}
+
+visualizar(LISTA_VACINA * vacinas)
+{
+    char entrada;
+    entrada = 'a';
+    printf("\n");
+    printf("---------------------------------------- VISUALIZAR ----------------------------------------\n\n");
+    while( entrada != '0' ) {
+
+        printf("0 - Voltar\n");
+        printf("1 - Registro de vacinas\n");
+
+        scanf("%c", &entrada);
+        getchar();
+
+        if ( entrada == '1' ) {
+            showVacinas(vacinas);
+        }
+    }
 }

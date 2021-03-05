@@ -205,7 +205,6 @@ int foundByCpf( LISTA*l, char *cpf ) {
     while( pos < l->pos_livre && (strcmp(cpf, l->item[pos].cpf) != 0) )
         pos++;
 
-    printf("POS %d\n", pos);
     if (pos == l->pos_livre) {
         printf("Erro: CPF nao encontrado\n");
         return -1;
