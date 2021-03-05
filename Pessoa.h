@@ -104,14 +104,14 @@ void inserePessoa(LISTA *l)
         printf("Insira uma prioridade valida, entre 1 e 5\n");
         scanf("%d", &pessoa.prioridade);
     }
-    
+
     getchar();
     push(l, pessoa);
 }
 
 /**
  *  Cria uma lista de pessoas vazia
- * 
+ *
  *  @return Pessoa lista vazia
  **/
 LISTA* criaLista() {
@@ -122,44 +122,110 @@ LISTA* criaLista() {
 
 /**
  *  Insere um elemento no final de uma lista
- * 
+ *
  * @param LISTA Lista para inserir o elemento
  * @param PESSOA Elemento para inserir no final da lista
- * 
+ *
  * @return int 1 Se inserido com sucesso
  **/
 int push(LISTA *l, PESSOA p) {
     if ( l->pos_livre >= MAX_SIZE ) {
         return 0;
+
     } else {
         l->item[l->pos_livre] = p;
         l->pos_livre += 1;
+
+        return 1;
     }
 }
 
-// int retiraPessoa(char cpf[15])
-// {
-//     int i;
-//     int id = 0;
-//     for ( i = 0; i < nPovo; i++ ) {
-//         if ( Povo[i].cpf == cpf ) {
-//             id = i;
-//             break;
-//         }
-//     }
+void removePessoa(LISTA *l)
+{
+    if ( isEmpty(l) ) {
+        printf("Erro - Nao ha registro de pessoas, por favor registre uma pessoa");
+        return 0;
+    }
+    char cpf[15];
+    // Faz a inserção do CPF
+    printf("Insira o CPF apenas com digitos para remover uma pessoa\n");
+    strcpy(cpf, gets(cpf));
+    while( ! validaCPF(cpf) ) {
+        printf("Insira um CPF valido (11 digitos)\n");
+        gets(cpf);
+    }
 
-//     if ( ! id ) {
-//         return 0;
-//     }
+    if ( removeByCpf(l, cpf) ) {
+        printf("Pessoa removida com sucesso.");
+    }
+}
 
-//     for ( ; i < nPovo - 1; i++ ) {
-//         Povo[i] = Povo[i+1];
-//     }
+/**
+ * Remove uma pessoa dado um cpf
+ *
+ * @param LISTA *l
+ * @param char cpf Numero de cpf da pessoa que vai ser removida
+ *
+ * @return integer 1 se removido com sucesso
+ **/
+int removeByCpf(LISTA *l, char *cpf) {
+    int pos, i;
+    // Entra caso a lista seja vazia
+    if ( isEmpty(l) ) {
+        printf("Erro: chamada função remove com uma lista vazia");
+        return 0;
+    }
+    pos = foundByCpf(l, cpf);
+    if ( pos >= 0 ) {
+        for ( i = pos; i < l->pos_livre; i++) {
+            l->item[pos] = l->item[pos+1];
+        }
+        l->pos_livre--;
+        return 1;
+    }
 
-//     // Povo[nPovo] = NULL;
+    return 0;
+}
 
-//     return 1;
-// }
+/**
+ * Procura por uma pessoa na lista dado o CPF
+ *
+ * @param LISTA *l
+ * @param char cpf Cpf que vai ser buscado
+ *
+ * @return int numero da posicao da pessoa na lista
+ **/
+int foundByCpf( LISTA*l, char *cpf ) {
+    if ( isEmpty(l) ) {
+        printf("Erro: chamada função buscaCPF com uma lista vazia");
+        return -1;
+    }
+    int pos = 0;
+
+    while( pos < l->pos_livre && (strcmp(cpf, l->item[pos].cpf) != 0) )
+        pos++;
+
+    printf("POS %d\n", pos);
+    if (pos == l->pos_livre) {
+        printf("Erro: CPF nao encontrado\n");
+        return -1;
+    }
+
+    return pos;
+}
+
+/**
+ * @param LISTA *l retorna se uma lista da struct LISTA eh vazia
+ *
+ * @return int 1 se for vazia
+ **/
+int isEmpty(LISTA *l) {
+    if ( l->pos_livre == 0 ) {
+        return 1;
+    }
+
+    return 0;
+}
 
 /**
 * Faz a validacao da string nome
@@ -260,7 +326,7 @@ int validaCPF(char cpf[15])
     if ( strlen(cpf) != 11 ) {
         return 0;
     }
-    
+
     for ( i = 0; i<strlen(cpf); i++ ) {
         if ( ! isdigit(cpf[i]) ) return 0;
     }
