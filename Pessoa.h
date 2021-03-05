@@ -1,57 +1,192 @@
-typedef struct Pessoa{
+#define MAX_SIZE 1000
+
+typedef struct PESSOA {
 
     char nome[255];
-    char sexo[1];
+    char sexo;
     char rg[15];
     char cpf[15];
     char telefone[15];
     char endereco[255];
     char profissao[255];
     int prioridade;
+    int idade;
 
-}Pessoa;
+} PESSOA;
 
-Pessoa Povo[10];
+typedef struct Lista {
+    PESSOA item[MAX_SIZE];
+    int pos_livre;
+} LISTA;
 
-int teste() {
-    Pessoa Povo[10];
-    // StrCpy para atribuir uma string em uma struct
-    strcpy(Povo[2].nome, "teste hehe");
+
+/**
+* Insere o registro de uma pessoa a partir de inputs do usuario no final do array Pessoa
+**/
+void inserePessoa(LISTA *l)
+{
+    char nome[255];
+    char rg[15];
+    char cpf[15];
+    char telefone[15];
+    char endereco[255];
+    char profissao[255];
+
+    PESSOA pessoa;
+
+    // Faz a inserÃ§Ã£o do nome
+    printf("Insira o nome\n");
+    gets(nome);
+    while( ! validaNome(nome) ) {
+        printf("Insira um nome valido\n");
+        gets(nome);
+    }
+    strcpy(pessoa.nome, nome);
+
+    // Faz a inserÃ§Ã£o da idade
+    printf("Insira a idade\n");
+    scanf("%d", &pessoa.idade);
+    while( ! validaIdade(pessoa.idade) ) {
+        printf("Insira uma idade valida\n");
+        scanf("%d", &pessoa.idade);
+    }
+
+    // Faz a inserÃ§Ã£o do sexo
+    printf("Insira o sexo\n");
+    scanf(" %c", &pessoa.sexo);
+    while( ! validaSexo(pessoa.sexo) ) {
+        printf("Insira um sexo valido\n");
+        scanf(" %c", &pessoa.sexo);
+    }
+    getchar();
+
+    // Faz a inserÃ§Ã£o do RG
+    printf("Insira o RG\n");
+    gets(rg);
+    while( ! validaRG(rg) ) {
+        printf("Insira um RG valido\n");
+        gets(rg);
+    }
+    strcpy(pessoa.rg, rg);
+
+    // Faz a inserÃ§Ã£o do CPF
+    printf("Insira o CPF com apenas digitos\n");
+    gets(cpf);
+    while( ! validaCPF(cpf) ) {
+        printf("Insira um CPF valido (11 digitos)\n");
+        gets(cpf);
+    }
+    strcpy(pessoa.cpf, cpf);
+
+    // Faz a inserÃ§Ã£o do telefone
+    printf("Insira o numero de telefone\n");
+    gets(telefone);
+    while( ! validaTelefone(telefone) ) {
+        printf("Insira um telefone valido\n");
+        gets(telefone);
+    }
+    strcpy(pessoa.telefone, telefone);
+
+    // Faz a inserÃ§Ã£o do endereco
+    printf("Insira o endereco\n");
+    gets(endereco);
+    strcpy(pessoa.endereco, endereco);
+
+    // Faz a inserÃ§Ã£o da profissao
+    printf("Insira a profissao\n");
+    gets(profissao);
+    strcpy(pessoa.profissao, profissao);
+
+    // Faz a inserÃ§Ã£o da prioridade
+    printf("Insira o grupo de prioridade da pessoa (entre 1 e 5)\n");
+    scanf("%d", &pessoa.prioridade);
+    while( ! validaPrioridade(pessoa.prioridade) ) {
+        printf("Insira uma prioridade valida, entre 1 e 5\n");
+        scanf("%d", &pessoa.prioridade);
+    }
+    
+    getchar();
+    push(l, pessoa);
 }
 
 /**
-* Insere o registro de uma pessoa a partir de inputs do usuário
-**/
-void setPessoa()
-{
-    printf("Insira o grupo de prioridade da pessoa (entre 1 e 5)\n");
-    scanf("%d", &Povo[0].prioridade);
-    while( !validaPrioridade(Povo[0].prioridade) ) {
-        printf("Insira uma prioridade válida, entre 1 e 5\n");
-        scanf("%d", &Povo[0].prioridade);
+ *  Cria uma lista de pessoas vazia
+ * 
+ *  @return Pessoa lista vazia
+ **/
+LISTA* criaLista() {
+    LISTA * nova_lista = (LISTA*) malloc(sizeof(LISTA));
+    nova_lista->pos_livre = 0;
+    return nova_lista;
+}
+
+/**
+ *  Insere um elemento no final de uma lista
+ * 
+ * @param LISTA Lista para inserir o elemento
+ * @param PESSOA Elemento para inserir no final da lista
+ * 
+ * @return int 1 Se inserido com sucesso
+ **/
+int push(LISTA *l, PESSOA p) {
+    if ( l->pos_livre >= MAX_SIZE ) {
+        return 0;
+    } else {
+        l->item[l->pos_livre] = p;
+        l->pos_livre += 1;
     }
 }
 
+// int retiraPessoa(char cpf[15])
+// {
+//     int i;
+//     int id = 0;
+//     for ( i = 0; i < nPovo; i++ ) {
+//         if ( Povo[i].cpf == cpf ) {
+//             id = i;
+//             break;
+//         }
+//     }
+
+//     if ( ! id ) {
+//         return 0;
+//     }
+
+//     for ( ; i < nPovo - 1; i++ ) {
+//         Povo[i] = Povo[i+1];
+//     }
+
+//     // Povo[nPovo] = NULL;
+
+//     return 1;
+// }
+
 /**
-* Faz a validação da string nome
+* Faz a validacao da string nome
 *
 * @return integer 1 se validado com succeso
 **/
-int validaNome()
+int validaNome(char nome[255])
 {
+    if ( nome[0] == '\0' ) return 0;
+
+    int i;
+
+    for ( i = 0; i < strlen(nome); i++) {
+        if ( isdigit(nome[i]) ) {
+            return 0;
+        }
+    }
+
     return 1;
 }
 
 /**
-* Faz a validação do sexo, pode ser um char 'M' para masculino e 'F' para feminino
-*
-* @param char sexo[1] Caractere que representa o sexo da pessoa
-*
-* @return integer 1 Se o sexo for válido
-**/
-int validaSexo(char sexo[1])
+ * Faz a validacao da idade, obrigatorio ser entre 0 e 125
+ **/
+int validaIdade(int idade)
 {
-    if ( sexo == 'M' || sexo == 'F' ) {
+    if ( idade >= 0 && idade <= 125 ) {
         return 1;
     }
 
@@ -59,11 +194,27 @@ int validaSexo(char sexo[1])
 }
 
 /**
-* Faz a validação da prioridade, se for entre 1 e 5 é válido
+* Faz a validaï¿½ï¿½o do sexo, pode ser um char 'M' para masculino e 'F' para feminino
+*
+* @param char sexo[1] Caractere que representa o sexo da pessoa
+*
+* @return integer 1 Se o sexo for vï¿½lido
+**/
+int validaSexo(char sexo[1])
+{
+    if ( sexo == 'M' || sexo == 'F' || sexo == 'm' || sexo == 'f' ) {
+        return 1;
+    }
+
+    return 0;
+}
+
+/**
+* Faz a validaï¿½ï¿½o da prioridade, se for entre 1 e 5 ï¿½ vï¿½lido
 *
 * @param integer prioridade
 *
-* @return integer 1 Se o sexo for válido
+* @return integer 1 Se o sexo for vï¿½lido
 **/
 int validaPrioridade(int prioridade)
 {
@@ -72,4 +223,69 @@ int validaPrioridade(int prioridade)
     }
 
     return 0;
+}
+
+/**
+* Faz a validacao do RG, se contem apenas digitos e tamanho igual a 9
+*
+* @param char rg
+*
+* @return integer 1 se o rg for valido
+**/
+int validaRG(char rg[15])
+{
+    if ( strlen(rg) != 9 ) {
+        return 0;
+    }
+
+    int i;
+    for( i = 0; i < strlen(rg); i++ ) {
+        if( !isdigit(rg[i]) ) return 0;
+    }
+
+    return 1;
+}
+
+/**
+* Faz a validacao do CPF, se contem apenas digitos e tamanho igual a 11
+*
+* @param char cpf
+*
+* @return integer 1 se o cpf for valido
+**/
+int validaCPF(char cpf[15])
+{
+    int i;
+
+    if ( strlen(cpf) != 11 ) {
+        return 0;
+    }
+    
+    for ( i = 0; i<strlen(cpf); i++ ) {
+        if ( ! isdigit(cpf[i]) ) return 0;
+    }
+
+    return 1;
+}
+
+/**
+ * @param telefone
+ *
+ * @return integer 1 se o telefone for valido
+ **/
+int validaTelefone(char telefone[15]) {
+
+    if ( strlen(telefone) < 8 || strlen(telefone) > 13 ) {
+        return 0;
+    }
+
+    int i;
+
+    for ( i = 0; i < strlen(telefone) ; i++ ) {
+        if ( ! isdigit(telefone[i]) ) {
+            return 0;
+        }
+    }
+
+    return 1;
 }

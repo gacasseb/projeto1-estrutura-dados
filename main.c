@@ -1,12 +1,21 @@
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <assert.h>
+
+#include "Prioridade.h"
 #include "Pessoa.h"
 
 /**
-* Fun��o main
+* Funcao main
 **/
 int main()
 {
     char entrada;
+    entrada = 'a';
+
+    LISTA * povo;
+    povo = criaLista();
 
     while ( entrada != '0' ) {
 
@@ -16,9 +25,10 @@ int main()
         printf("\n");
 
         scanf("%c", &entrada);
+        getchar();
 
         if ( entrada == '1' ) {
-            setPessoa();
+            inserePessoa(povo);
         }
     }
 
