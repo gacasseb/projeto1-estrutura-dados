@@ -37,18 +37,18 @@ int main()
         printf("0 - Sair\n");
         // printf("---------- PESSOAS ----------\n");
         printf("1 - Registrar uma pessoa\n");
-        printf("2 - Remover uma pessoa\n");
+        printf("2 - Registrar pessoa por arquivo\n");
+        printf("3 - Remover uma pessoa\n");
         // printf("------ GRUPO DE PRIORIDADES ------\n");
-        printf("3 - Liberar grupo de prioridade\n");
+        printf("4 - Liberar grupo de prioridade\n");
         // printf("---------- VACINA ----------\n");
-        printf("4 - Registrar uma vacina\n");
-        printf("9 - Alterar estoque de uma vacina\n");
+        printf("5 - Registrar uma vacina\n");
+        printf("6 - Alterar estoque de uma vacina\n");
         // printf("---------- VACINACAO ----------\n");
-        printf("5 - Registrar uma vacinacao\n");
+        printf("7 - Registrar uma vacinacao\n");
         // printf("---------- VISUALIZAR ----------\n");
-        printf("6 - Relatorios\n");
-        printf("7 - Visualizar\n");
-        printf("8 - Registrar pessoa por arquivo\n");
+        printf("8 - Relatorios\n");
+        printf("9 - Visualizar\n");
         printf("\n");
 
         scanf("%c", &entrada);
@@ -59,35 +59,35 @@ int main()
         }
 
         if ( entrada == '2' ) {
-            removePessoa(povo);
+            inserePessoaArquivo(povo);
         }
 
         if ( entrada == '3' ) {
-            registraPrioridade(prioridade);
+            removePessoa(povo);
         }
 
         if ( entrada == '4' ) {
-            registraVacina(vacinas);
+            registraPrioridade(prioridade);
         }
 
         if ( entrada == '5' ) {
-            registraVacinacao(vacinacao, povo, vacinas, prioridade);
+            registraVacina(vacinas);
         }
-
-        if ( entrada == '7' ) {
-            visualizar(povo, vacinas);
-        }
-
-        if ( entrada == '9' ) {
+        
+        if ( entrada == '6' ) {
             alteraEstoque(vacinas);
         }
 
-        if ( entrada == '6' ) {
-            relatorios(vacinas, vacinacao, povo);
+        if ( entrada == '7' ) {
+            registraVacinacao(vacinacao, povo, vacinas, prioridade);
         }
 
         if ( entrada == '8' ) {
-            inserePessoaArquivo(povo);
+            relatorios(vacinas, vacinacao, povo);
+        }
+
+        if ( entrada == '9' ) {
+            visualizar(povo, vacinas);
         }
     }
 
@@ -131,9 +131,11 @@ relatorios(LISTA_VACINA * lista_vacinas, LISTA_VACINACAO * lista_vacinacao, LIST
         if ( entrada == '3' ) {
             geraRelatorioVacinadoDose2(lista_vacinacao);
         }
+
         if ( entrada == '4' ) {
             geraRelatorioNaoVacinados(lista_pessoas);
         }
+
         if ( entrada == '5' ) {
             geraRelatorioPrioritario(lista_pessoas);
         }

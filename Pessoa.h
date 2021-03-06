@@ -301,7 +301,7 @@ int removeByCpf(LISTA *l, char *cpf) {
     pos = foundByCpf(l, cpf);
     if ( pos >= 0 ) {
         for ( i = pos; i < l->pos_livre; i++) {
-            l->item[pos] = l->item[pos+1];
+            l->item[i] = l->item[i+1];
         }
         l->pos_livre--;
         return 1;
