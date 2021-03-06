@@ -130,10 +130,6 @@ void inserePessoa(LISTA *l)
     // Faz a inserção do telefone
     printf("Insira o numero de telefone\n");
     gets(telefone);
-    while( ! validaTelefone(telefone) ) {
-        printf("Insira um telefone valido\n");
-        gets(telefone);
-    }
     strcpy(pessoa.telefone, telefone);
 
     // Faz a inserção do endereco
@@ -246,7 +242,7 @@ int removeByCpf(LISTA *l, char *cpf) {
  **/
 int foundByCpf( LISTA*l, char *cpf ) {
     if ( isEmpty(l) ) {
-        printf("Erro: chamada função buscaCPF com uma lista vazia");
+        printf("Erro: chamada funcao buscaCPF com uma lista de pessoas vazia, registre uma pessoa\n");
         return -1;
     }
     int pos = 0;

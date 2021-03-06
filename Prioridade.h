@@ -22,6 +22,19 @@ LISTA_PRIORIDADE * criaListaPrioridade() {
     return nova_lista;
 }
 
+void registraPrioridade(LISTA_PRIORIDADE * prioridade)
+{
+    int id_prioridade;
+    printf("Insira o grupo de prioridade que deseja liberar (digito entre 1 e 5)\n");
+    scanf("%d", &id_prioridade);
+    while( ! validaPrioridades(id_prioridade) ) {
+        printf("Insira um grupo de prioridade valido (digito entre 1 e 5)\n");
+        scanf("%d", &id_prioridade);
+    }
+    getchar();
+    liberaGrupo(prioridade, id_prioridade);
+}
+
 /**
  * Libera um grupo de prioridade para a vacinacao
  * 
@@ -63,6 +76,7 @@ int isEnabled(LISTA_PRIORIDADE * l, int id){
         return 1;
     }
 
+    printf("Grupo de prioridade nao liberado para vacinacao\n");
     return 0;
 }
 

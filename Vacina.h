@@ -22,6 +22,11 @@ LISTA_VACINA * criaListaVacina()
     return nova_lista;
 }
 
+/**
+ *  Solicita os dados para registrar a vacina
+ * 
+ *  @param LISTA_VACINA
+ */
 void registraVacina(LISTA_VACINA *l)
 {
     VACINA vacina;
@@ -34,6 +39,11 @@ void registraVacina(LISTA_VACINA *l)
         gets(nome);
     }
     strcpy(vacina.nome, nome);
+
+    if ( foundVacinaByName(l, nome) >= 0 ) {
+        printf("Erro: Uma vacina com este nome ja foi registrada.\n");
+        return;
+    }
 
     // Faz a inserção da idade
     printf("Insira o estoque da vacina em digitos\n");
@@ -66,6 +76,42 @@ int pushVacina(LISTA_VACINA *l, VACINA v) {
 
         return 1;
     }
+}
+
+int foundVacinaByName( LISTA_VACINA *l, char *nome ) {
+    if ( isEmptyVacinas(l) ) {
+        return -1;
+    }
+    int pos = 0;
+
+    while( pos < l->pos_livre && (strcmp(nome, l->item[pos].nome) != 0) )
+        pos++;
+
+    if (pos == l->pos_livre) {
+        printf("Erro: Vacina nao encontrada\n");
+        return -1;
+    }
+
+    return pos;
+}
+
+/**
+ *  Verifica se tem estoque para aplicar a vacina
+ * 
+ *  @param LISTA_VACINA *l
+ *  @param char nome_vacina
+ * 
+ *  @return int 1 se existe estoque para a vacina
+ */
+int hasVacina( VACINA v, char *nome_vacina )
+{
+    if ( v.estoque > 0 ) {
+        return 1;
+    } else {
+        printf("Nao existe estoque disponivel para a vacinacao desta vacina\n");
+    }
+
+    return 0;
 }
 
 void showVacinas(LISTA_VACINA *l) {
