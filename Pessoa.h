@@ -78,6 +78,12 @@ void inserePessoa(LISTA *l)
     }
     strcpy(pessoa.cpf, cpf);
 
+    // Verifica se este cpf ja foi cadastrado
+    if ( foundByCpf(l, cpf) >= 0 ) {
+        printf("Uma pessoa com este CPF ja foi cadastrada.\n");
+        return;
+    }
+
     // Faz a inserção do telefone
     printf("Insira o numero de telefone\n");
     gets(telefone);
@@ -103,6 +109,8 @@ void inserePessoa(LISTA *l)
 
     getchar();
     push(l, pessoa);
+
+    printf("Pessoa registrada com sucesso.\n");
 }
 
 /**
@@ -136,10 +144,15 @@ int push(LISTA *l, PESSOA p) {
     }
 }
 
+/**
+ *  Remove uma pessoa da lista
+ * 
+ *  @param LISTA *l ponteiro para estrutura do tipo LISTA de pessoas
+ */
 void removePessoa(LISTA *l)
 {
     if ( isEmpty(l) ) {
-        printf("Erro - Nao ha registro de pessoas, por favor registre uma pessoa");
+        printf("Erro - Nao ha registro de pessoas.\n");
         return 0;
     }
     char cpf[15];
@@ -152,7 +165,7 @@ void removePessoa(LISTA *l)
     }
 
     if ( removeByCpf(l, cpf) ) {
-        printf("Pessoa removida com sucesso.");
+        printf("Pessoa removida com sucesso.\n");
     }
 }
 
@@ -193,7 +206,6 @@ int removeByCpf(LISTA *l, char *cpf) {
  **/
 int foundByCpf( LISTA*l, char *cpf ) {
     if ( isEmpty(l) ) {
-        printf("Erro: chamada funcao buscaCPF com uma lista de pessoas vazia, registre uma pessoa\n");
         return -1;
     }
     int pos = 0;
@@ -202,7 +214,7 @@ int foundByCpf( LISTA*l, char *cpf ) {
         pos++;
 
     if (pos == l->pos_livre) {
-        printf("Erro: CPF nao encontrado\n");
+        // printf("Erro: CPF nao encontrado\n");
         return -1;
     }
 
@@ -220,6 +232,32 @@ int isEmpty(LISTA *l) {
     }
 
     return 0;
+}
+
+/**
+ * Imprime todos os registros de pessoas.
+ * 
+ *  @param LISTA *l
+ */
+void showPessoas(LISTA *l) {
+    if ( isEmpty(l) ) {
+        printf("A lista de pessoas esta vazia, por favor, registre uma pessoa\n");
+        return;
+    }
+
+    int i;
+    printf("---------------------------------------- PESSOAS REGISTRADAS ----------------------------------------\n\n");
+    for ( i = 0; i < l->pos_livre; i++ ) {
+        printf("id: %d\n", i);
+        printf("Nome: %s\n", l->item[i].nome);
+        printf("CPF: %s\n", l->item[i].cpf);
+        printf("idade: %d\n", l->item[i].idade);
+        printf("grupo de prioridade: %d\n", l->item[i].prioridade);
+        printf("\n");
+    }
+
+    printf("\n");
+    printf("\n");
 }
 
 /**

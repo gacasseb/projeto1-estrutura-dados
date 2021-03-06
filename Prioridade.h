@@ -76,7 +76,7 @@ int isEnabled(LISTA_PRIORIDADE * l, int id){
         return 1;
     }
 
-    printf("Grupo de prioridade nao liberado para vacinacao\n");
+    // printf("Grupo de prioridade nao liberado para vacinacao\n");
     return 0;
 }
 

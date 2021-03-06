@@ -45,6 +45,13 @@ void registraVacinacao(LISTA_VACINACAO * vacinacao, LISTA * pessoa, LISTA_VACINA
     id_pessoa = foundByCpf(pessoa, cpf);
     // Retorna caso nao encontre o registro de uma pessoa com o CPF inserido  
     if ( id_pessoa < 0 ) {
+        printf("Nao foi encontrado registro com este CPF.\n");
+        return;
+    }
+
+    // Verifica se o grupo de prioridade da pessoa esta liberado para a vacinacao
+    if ( ! isEnabled(prioridade, pessoa->item[id_pessoa].prioridade) ) {
+        printf("Grupo de prioridade nao liberado para vacinacao.\n");
         return;
     }
 
@@ -63,13 +70,8 @@ void registraVacinacao(LISTA_VACINACAO * vacinacao, LISTA * pessoa, LISTA_VACINA
         return;
     }
 
-    // Retorna caso nao tenha estoque disponivel
+    // Verifica se existe estoque da vacina para a vacinacao da pessoa
     if ( ! hasVacina(vacina->item[pos_vacina], nome_vacina) ) {
-        return;
-    }
-
-    // Retorna caso o grupo de prioridade da pessoa nao esteja liberado
-    if ( ! isEnabled(prioridade, pessoa->item[id_pessoa].prioridade) ) {
         return;
     }
 
