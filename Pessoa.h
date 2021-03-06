@@ -174,7 +174,7 @@ void inserePessoaArquivo(LISTA *l) {
         strcpy(pessoa.nome, ptr);
 
         ptr = rstr(NULL, delim);
-        strcpy(idade, ptr);
+        pessoa.idade = atoi(ptr);
 
         ptr = rstr(NULL, delim);
         strcpy(pessoa.sexo, ptr);
@@ -196,13 +196,6 @@ void inserePessoaArquivo(LISTA *l) {
 
         ptr = rstr(NULL, delim);
         pessoa.prioridade = atoi(ptr);
-
-
-        if(validaDigito(idade))
-            pessoa.idade = atoi(idade);
-
-        /*if(validaDigito(prioridade))
-            pessoa.prioridade = atoi(prioridade);*/
 
         if(!validaNome(pessoa.nome)) {
             printf("Pessoa do CPF: '%s' nao foi registrada(Nome Invalido '%s')\n", pessoa.cpf, pessoa.nome);
