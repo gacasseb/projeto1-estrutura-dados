@@ -45,6 +45,7 @@ int main()
         printf("5 - Registrar uma vacinacao\n");
         // printf("---------- VISUALIZAR ----------\n");
         printf("7 - Visualizar\n");
+        printf("8 - Registrar pessoa por arquivo\n");
         printf("\n");
 
         scanf("%c", &entrada);
@@ -72,6 +73,9 @@ int main()
 
         if ( entrada == '7' ) {
             visualizar(vacinas);
+        }
+        if ( entrada == '8' ) {
+            inserePessoaArquivo(povo);
         }
     }
 

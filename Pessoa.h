@@ -3,7 +3,7 @@
 typedef struct PESSOA {
 
     char nome[255];
-    char sexo[2];
+    char sexo[10];
     char rg[15];
     char cpf[15];
     char telefone[15];
@@ -18,56 +18,6 @@ typedef struct Lista {
     PESSOA item[MAX_SIZE];
     int pos_livre;
 } LISTA;
-
-void inserePessoaArquivo(LISTA *l) {
-    FILE* f;
-    char path[255];
-
-    scanf("%s", &path);
-    f = fopen(path, "r");
-
-    if(f == NULL) {
-        printf("Nao foi possivel abrir o arquivo\n");
-    }
-
-    while(!feof(f)) {
-        char str[255];
-        char delim[] = ";";
-        char *ptr;
-
-        fscanf(f, "%s", &str);
-
-        ptr = strtok(str, delim);
-        strcpy(pessoa.nome, ptr);
-
-        ptr = strtok(NULL, delim);
-        pessoa.idade = atoi(ptr);
-
-        ptr = strtok(NULL, delim);
-        strcpy(pessoa.sexo, ptr);
-
-        ptr = strtok(NULL, delim);
-        strcpy(pessoa.rg, ptr);
-
-        ptr = strtok(NULL, delim);
-        strcpy(pessoa.cpf, ptr);
-
-        ptr = strtok(NULL, delim);
-        strcpy(pessoa.telefone, ptr);
-
-        ptr = strtok(NULL, delim);
-        strcpy(pessoa.endereco, ptr);
-
-        ptr = strtok(NULL, delim);
-        strcpy(pessoa.profissao, ptr);
-
-        ptr = strtok(NULL, delim);
-        pessoa.prioridade = atoi(ptr);
-
-        push(l, pessoa);
-    }
-
-}
 
 /**
 * Insere o registro de uma pessoa a partir de inputs do usuario no final do array Pessoa
@@ -152,6 +102,128 @@ void inserePessoa(LISTA *l)
 
     getchar();
     push(l, pessoa);
+}
+
+/**
+*  Faz a leitura das strings do arquivo texto e as separa
+*
+* @param str  String a ser dividida
+* @param delim  Um caracter delimitador que indica onde deve se separar a string
+*
+* @return Um ponteiro para o a primeira ocorrencia do caracter delim
+**/
+char *rstr (char *str, char const *delim)
+{
+  static char *src = NULL;
+  char *p, *ret = 0;
+
+  if (str != NULL)
+    src = str;
+
+  if (src == NULL)
+    return NULL;
+
+  if ((p = strpbrk (src, delim)) != NULL) {
+    *p  = 0;
+    ret = src;
+    src = ++p;
+   }
+    else if (*src) {
+        ret = src;
+        src = NULL;
+    }
+    return ret;
+}
+
+/**
+* Insere o registro de uma ou mais pessoas a partir de um arquivo texto
+**/
+void inserePessoaArquivo(LISTA *l) {
+    FILE* f;
+    char path[255];
+    char idade[10];
+    char prioridade[10];
+
+    //Scaneia o caminho do arquivo
+    printf("Entre com o caminho do arquivo: ");
+    gets(path);
+    f = fopen(path, "r");
+
+    if(f == NULL) {
+        printf("Nao foi possivel abrir o arquivo\n");
+    }
+
+
+    while(!feof(f)) {
+        PESSOA pessoa;
+        char str[255];
+        char delim[] = ";";
+        char *ptr;
+
+        fgets(str, 1000, f);
+
+        ptr = rstr(str, delim);
+        strcpy(pessoa.nome, ptr);
+
+        ptr = rstr(NULL, delim);
+        strcpy(idade, ptr);
+
+        ptr = rstr(NULL, delim);
+        strcpy(pessoa.sexo, ptr);
+
+        ptr = rstr(NULL, delim);
+        strcpy(pessoa.rg, ptr);
+
+        ptr = rstr(NULL, delim);
+        strcpy(pessoa.cpf, ptr);
+
+        ptr = rstr(NULL, delim);
+        strcpy(pessoa.telefone, ptr);
+
+        ptr = rstr(NULL, delim);
+        strcpy(pessoa.endereco, ptr);
+
+        ptr = rstr(NULL, delim);
+        strcpy(pessoa.profissao, ptr);
+
+        ptr = rstr(NULL, delim);
+        pessoa.prioridade = atoi(ptr);
+
+
+        if(validaDigito(idade))
+            pessoa.idade = atoi(idade);
+
+        /*if(validaDigito(prioridade))
+            pessoa.prioridade = atoi(prioridade);*/
+
+        if(!validaNome(pessoa.nome)) {
+            printf("Pessoa do CPF: '%s' nao foi registrada(Nome Invalido '%s')\n", pessoa.cpf, pessoa.nome);
+            continue;
+        }
+
+        else if(!validaIdade(pessoa.idade)) {
+            printf("Pessoa do CPF: '%s' nao foi registrada(Idade Invalida '%d')\n", pessoa.cpf, pessoa.idade);
+            continue;
+        }
+        else if(!validaSexo(pessoa.sexo)) {
+            printf("Pessoa do CPF: '%s' nao foi registrada(Sexo Invalido '%s')\n", pessoa.cpf, pessoa.sexo);
+            continue;
+        }
+        else if(!validaRG(pessoa.rg)) {
+            printf("Pessoa do CPF: '%s' nao foi registrada(RG Invalido '%s')\n", pessoa.cpf, pessoa.rg);
+            continue;
+        }
+        else if(!validaCPF(pessoa.cpf)) {
+            printf("Pessoa chamada: '%s' nao foi registrada(CPF Invalido '%s')\n", pessoa.nome, pessoa.cpf);
+            continue;
+        }
+        else if(!validaPrioridade(pessoa.prioridade)) {
+            printf("Pessoa do CPF: '%s' nao foi registrada(Prioridade Invalida '%d')\n", pessoa.cpf, pessoa.prioridade);
+            continue;
+        }
+        push(l, pessoa);
+    }
+
 }
 
 /**
@@ -272,6 +344,19 @@ int isEmpty(LISTA *l) {
 }
 
 /**
+ * Verifica se uma string contem apenas digitos
+ **/
+int validaDigito(char str[10])
+{
+    int i;
+    for( i = 0; i < strlen(str); i++ ) {
+        if( !isdigit(str[i]) ) return 0;
+    }
+
+    return 1;
+}
+
+/**
 * Faz a validacao da string nome
 *
 * @return integer 1 se validado com succeso
@@ -310,11 +395,20 @@ int validaIdade(int idade)
 *
 * @return integer 1 Se o sexo for v�lido
 **/
-int validaSexo(char sexo[1])
+int validaSexo(char sexo[10])
 {
-    if ( sexo == 'M' || sexo == 'F' || sexo == 'm' || sexo == 'f' ) {
+    if ( strcmp(sexo, "F") == 0 ) {
         return 1;
     }
+    else if ( strcmp(sexo, "M") == 0 ) {
+            return 1;
+         }
+    else if ( strcmp(sexo, "m") == 0 ) {
+            return 1;
+         }
+    else if ( strcmp(sexo, "f") == 0 ) {
+            return 1;
+         }
 
     return 0;
 }
@@ -344,7 +438,7 @@ int validaPrioridade(int prioridade)
 **/
 int validaRG(char rg[15])
 {
-    if ( strlen(rg) != 9 ) {
+    if ( (strlen(rg) != 3) || (strlen(rg) != 9) == 0 ) {
         return 0;
     }
 
@@ -385,7 +479,7 @@ int validaCPF(char cpf[15])
  **/
 int validaTelefone(char telefone[15]) {
 
-    if ( strlen(telefone) < 8 || strlen(telefone) > 13 ) {
+    if ( (strlen(telefone)) < 8 || (strlen(telefone) > 13 ) ) {
         return 0;
     }
 
