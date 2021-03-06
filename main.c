@@ -7,6 +7,7 @@
 #include "Prioridade.h"
 #include "Vacina.h"
 #include "Vacinacao.h"
+#include "Relatorio.h"
 
 /**
 * Funcao main
@@ -45,6 +46,7 @@ int main()
         // printf("---------- VACINACAO ----------\n");
         printf("5 - Registrar uma vacinacao\n");
         // printf("---------- VISUALIZAR ----------\n");
+        printf("6 - Relatorios\n");
         printf("7 - Visualizar\n");
         printf("\n");
 
@@ -78,6 +80,10 @@ int main()
         if ( entrada == '9' ) {
             alteraEstoque(vacinas);
         }
+
+        if ( entrada == '6' ) {
+            relatorios(vacinas);
+        }
     }
 
     free(povo);
@@ -86,6 +92,27 @@ int main()
     free(vacinacao);
 
     return 1;
+}
+
+relatorios(LISTA_VACINA * lista_vacinas)
+{
+    printf("\n");
+    printf("---------------------------------------- RELATORIOS ----------------------------------------\n\n");
+
+    char entrada;
+    entrada = 'a';
+
+    while ( entrada != '0' ) {
+
+        printf("1 - Gerar relatorio de vacinas\n");
+
+        scanf("%c", &entrada);
+        getchar();
+
+        if ( entrada == '1' ) {
+            geraRelatorioVacinas(lista_vacinas);
+        }
+    }
 }
 
 visualizar(LISTA *povo, LISTA_VACINA * vacinas)
