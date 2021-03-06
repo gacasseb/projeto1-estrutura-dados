@@ -41,6 +41,7 @@ int main()
         printf("3 - Liberar grupo de prioridade\n");
         // printf("---------- VACINA ----------\n");
         printf("4 - Registrar uma vacina\n");
+        printf("9 - Alterar estoque de uma vacina\n");
         // printf("---------- VACINACAO ----------\n");
         printf("5 - Registrar uma vacinacao\n");
         // printf("---------- VISUALIZAR ----------\n");
@@ -72,7 +73,11 @@ int main()
         }
 
         if ( entrada == '7' ) {
-            visualizar(vacinas);
+            visualizar(povo, vacinas);
+        }
+
+        if ( entrada == '9' ) {
+            alteraEstoque(vacinas);
         }
         if ( entrada == '8' ) {
             inserePessoaArquivo(povo);
@@ -87,7 +92,7 @@ int main()
     return 1;
 }
 
-visualizar(LISTA_VACINA * vacinas)
+visualizar(LISTA *povo, LISTA_VACINA * vacinas)
 {
     char entrada;
     entrada = 'a';
@@ -96,12 +101,17 @@ visualizar(LISTA_VACINA * vacinas)
     while( entrada != '0' ) {
 
         printf("0 - Voltar\n");
-        printf("1 - Registro de vacinas\n");
+        printf("1 - Registro de pessoas\n");
+        printf("2 - Registro de vacinas\n");
 
         scanf("%c", &entrada);
         getchar();
 
         if ( entrada == '1' ) {
+            showPessoas(povo);
+        }
+
+        if ( entrada == '2' ) {
             showVacinas(vacinas);
         }
     }

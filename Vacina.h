@@ -95,6 +95,38 @@ int foundVacinaByName( LISTA_VACINA *l, char *nome ) {
     return pos;
 }
 
+void alteraEstoque( LISTA_VACINA *l )
+{
+    char nome[255];
+    printf("Insira o nome da vacina\n");
+    gets(nome);
+    while( ! validaNomeVacina(nome) ) {
+        printf("Insira um nome valido (apenas letras)\n");
+        gets(nome);
+    }
+    int pos_vacina;
+    pos_vacina = foundVacinaByName(l, nome);
+
+    if ( pos_vacina >= 0 ) {
+
+        int estoque;
+        // Faz a inserção da idade
+        printf("Insira o estoque da vacina em digitos\n");
+        scanf("%d", &estoque);
+        while( ! validaEstoqueVacina(estoque) ) {
+            printf("Insira o estoque da vacina em digitos (apenas numero inteiro positivo)\n");
+            scanf("%d", &estoque);
+        }
+        getchar();
+
+        l->item[pos_vacina].estoque = estoque;
+        printf("Estoque da vacina alterado com sucesso.\n");
+        
+    } else {
+        printf("Vacina nao encontrada.\n");
+    }
+}
+
 /**
  *  Verifica se tem estoque para aplicar a vacina
  * 
@@ -114,6 +146,11 @@ int hasVacina( VACINA v, char *nome_vacina )
     return 0;
 }
 
+/**
+ * Imprime todos os registros de vacinas.
+ * 
+ *  @param LISTA_VACINA *l
+ */
 void showVacinas(LISTA_VACINA *l) {
     if ( isEmptyVacinas(l) ) {
         printf("A lista de vacinas esta vazia, por favor, registre uma vacina\n");
