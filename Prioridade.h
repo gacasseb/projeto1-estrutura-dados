@@ -22,6 +22,13 @@ LISTA_PRIORIDADE * criaListaPrioridade() {
     return nova_lista;
 }
 
+/**
+ *  Registra um grupo de prioridade a ser liberado
+ *
+ *  @param LISTA_PRIORIDADE Lista de prioridade
+ *
+ **/
+
 void registraPrioridade(LISTA_PRIORIDADE * prioridade)
 {
     int id_prioridade;
