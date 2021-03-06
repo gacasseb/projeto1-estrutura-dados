@@ -6,6 +6,7 @@
 #include "Pessoa.h"
 #include "Prioridade.h"
 #include "Vacina.h"
+#include "Vacinacao.h"
 
 /**
 * Funcao main
@@ -24,17 +25,25 @@ int main()
     LISTA_VACINA * vacinas;
     vacinas = criaListaVacina();
 
+    LISTA_VACINACAO * vacinacao;
+    vacinacao = criaListaVacinacao();
+
     while ( entrada != '0' ) {
 
-        printf("\n");
-        printf("\n");
+        printf("---------------------------------------- MENU ----------------------------------------\n\n");
 
         // Imprime o menu
         printf("0 - Sair\n");
+        // printf("---------- PESSOAS ----------\n");
         printf("1 - Registrar uma pessoa\n");
         printf("2 - Remover uma pessoa\n");
+        // printf("------ GRUPO DE PRIORIDADES ------\n");
         printf("3 - Liberar grupo de prioridade\n");
+        // printf("---------- VACINA ----------\n");
         printf("4 - Registrar uma vacina\n");
+        // printf("---------- VACINACAO ----------\n");
+        printf("5 - Registrar uma vacinacao\n");
+        // printf("---------- VISUALIZAR ----------\n");
         printf("7 - Visualizar\n");
         printf("\n");
 
@@ -50,19 +59,15 @@ int main()
         }
 
         if ( entrada == '3' ) {
-            int id_prioridade;
-            printf("Insira o grupo de prioridade que deseja liberar (digito entre 1 e 5)\n");
-            scanf("%d", &id_prioridade);
-            while( ! validaPrioridades(id_prioridade) ) {
-                printf("Insira um grupo de prioridade valido (digito entre 1 e 5)\n");
-                scanf("%d", &id_prioridade);
-            }
-            getchar();
-            liberaGrupo(prioridade, id_prioridade);
+            registraPrioridade(prioridade);
         }
 
         if ( entrada == '4' ) {
             registraVacina(vacinas);
+        }
+
+        if ( entrada == '5' ) {
+            registraVacinacao(vacinacao, povo, vacinas, prioridade);
         }
 
         if ( entrada == '7' ) {
@@ -72,6 +77,8 @@ int main()
 
     free(povo);
     free(prioridade);
+    free(vacinas);
+    free(vacinacao);
 
     return 1;
 }
