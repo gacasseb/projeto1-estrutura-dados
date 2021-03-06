@@ -83,7 +83,7 @@ int main()
         }
 
         if ( entrada == '6' ) {
-            relatorios(vacinas);
+            relatorios(vacinas, vacinacao);
         }
         
         if ( entrada == '8' ) {
@@ -99,7 +99,7 @@ int main()
     return 1;
 }
 
-relatorios(LISTA_VACINA * lista_vacinas)
+relatorios(LISTA_VACINA * lista_vacinas, LISTA_VACINACAO * lista_vacinacao)
 {
     printf("\n");
     printf("---------------------------------------- RELATORIOS ----------------------------------------\n\n");
@@ -109,13 +109,24 @@ relatorios(LISTA_VACINA * lista_vacinas)
 
     while ( entrada != '0' ) {
 
+        printf("0 - Voltar\n");
         printf("1 - Gerar relatorio de vacinas\n");
+        printf("2 - Gerar relatorio de vacinados com a primeira dose\n");
+        printf("3 - Gerar relatorio de vacinados com a segunda dose\n");
 
         scanf("%c", &entrada);
         getchar();
 
         if ( entrada == '1' ) {
             geraRelatorioVacinas(lista_vacinas);
+        }
+
+        if ( entrada == '2' ) {
+            geraRelatorioVacinadoDose1(lista_vacinacao);
+        }
+
+        if ( entrada == '3' ) {
+            geraRelatorioVacinadoDose2(lista_vacinacao);
         }
     }
 }

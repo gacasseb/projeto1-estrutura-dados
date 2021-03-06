@@ -2,6 +2,7 @@
 
 typedef struct VACINACAO {
     char cpf_pessoa[255];
+    char nome_pessoa[255];
     char nome_vacina[255];
     int dose;
     char data[15];
@@ -67,6 +68,7 @@ void registraVacinacao(LISTA_VACINACAO * vacinacao, LISTA * pessoa, LISTA_VACINA
     pos_vacina = foundVacinaByName(vacina, nome_vacina);
     // Retorna caso nao encontre o registro da vacina na lista de vacinas
     if ( pos_vacina < 0 ) {
+        printf("Vacina nao encontrada.\n");
         return;
     }
 
@@ -82,7 +84,7 @@ void registraVacinacao(LISTA_VACINACAO * vacinacao, LISTA * pessoa, LISTA_VACINA
     if ( pos_vacinacao >= 0 ) {
         // Verifica se a pessoa ja tomou as duas doses
         if ( vacinacao->item[pos_vacinacao].dose == 2 ) {
-            printf("Essa pessoa ja foi vacinada com as duas doses da vacina.\n");
+            printf("Essa pessoa ja foi vacinada com duas doses.\n");
             return;
 
         } else {
@@ -95,6 +97,7 @@ void registraVacinacao(LISTA_VACINACAO * vacinacao, LISTA * pessoa, LISTA_VACINA
         VACINACAO v;
 
         strcpy(v.cpf_pessoa, pessoa->item[id_pessoa].cpf);
+        strcpy(v.nome_pessoa, pessoa->item[id_pessoa].nome);
         strcpy(v.nome_vacina, vacina->item[pos_vacina].nome);
         v.dose = 1;
 

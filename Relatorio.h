@@ -2,40 +2,61 @@ void geraRelatorioVacinas(LISTA_VACINA * vacinas)
 {
     if ( vacinas->pos_livre == 0 ) {
         printf("Lista de vacinas esta vazia, registre pelo menos uma vacina.\n");
+        return;
     }
-
-    FILE *arq;
-    arq = fopen("relatorio-vacinas.txt", "w");
 
     int i;
 
+    printf("-------------------------------- RELATORIO VACINAS --------------------------------\n\n");
+
     for ( i = 0; i < vacinas->pos_livre; i++ ) {
-        fwrite("Nome da vacina: ", 1, 16, arq);
-        fwrite(vacinas->item[i].nome, 1, strlen(vacinas->item[i].nome), arq);
-        fwrite("\n", 1, 1, arq);
 
-        fwrite("Numero de dose no estoque: ", 1, 27, arq);
-
-        char str[10];
-        memset(str, '\0', 10);
-        sprintf(str,"%d",vacinas->item[i].estoque);
-        fwrite(str, sizeof(char), strlen(str), arq);
-        fwrite("\n", 1, 1, arq);
+        printf("Nome da vacina: %s\n", vacinas->item[i].nome);
+        printf("Numero de doses no estoque: %d\n", vacinas->item[i].estoque);
+        printf("\n");
     }
-
-    printf("Relatorio gerado com sucesso.\n");
-
-    fclose(arq);
+    printf("\n");
+    printf("\n");
 }
 
 void geraRelatorioVacinadoDose1(LISTA_VACINACAO * vacinacao)
 {
     if ( vacinacao->pos_livre == 0 ) {
         printf("Lista de vacinacao esta vazia, registre pelo menos uma vacinacao.\n");
+        return;
     }
+
+    printf("-------------------------------- RELATORIO DE PESSOAS QUE VACINOU COM A PRIMEIRA DOSE --------------------------------\n\n");
 
     int i;
     for ( i = 0; i < vacinacao->pos_livre; i++ ) {
-        
+        if ( vacinacao->item[i].dose == 1 ) {
+            printf("Nome: %s\n", vacinacao->item[i].nome_pessoa);
+            printf("CPF: %s\n", vacinacao->item[i].cpf_pessoa);
+            printf("\n");
+        }
     }
+    printf("\n");
+    printf("\n");
+}
+
+void geraRelatorioVacinadoDose2(LISTA_VACINACAO * vacinacao)
+{
+    if ( vacinacao->pos_livre == 0 ) {
+        printf("Lista de vacinacao esta vazia, registre pelo menos uma vacinacao.\n");
+        return;
+    }
+
+    printf("-------------------------------- RELATORIO DE PESSOAS QUE VACINOU COM A SEGUNDA DOSE --------------------------------\n\n");
+
+    int i;
+    for ( i = 0; i < vacinacao->pos_livre; i++ ) {
+        if ( vacinacao->item[i].dose == 2 ) {
+            printf("Nome: %s\n", vacinacao->item[i].nome_pessoa);
+            printf("CPF: %s\n", vacinacao->item[i].cpf_pessoa);
+            printf("\n");
+        }
+    }
+    printf("\n");
+    printf("\n");
 }

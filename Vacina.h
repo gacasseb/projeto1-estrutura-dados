@@ -88,7 +88,6 @@ int foundVacinaByName( LISTA_VACINA *l, char *nome ) {
         pos++;
 
     if (pos == l->pos_livre) {
-        printf("Erro: Vacina nao encontrada\n");
         return -1;
     }
 
