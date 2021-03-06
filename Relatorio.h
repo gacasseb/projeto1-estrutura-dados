@@ -1,5 +1,11 @@
+/**
+ * Imprime o relatorio de vacinas
+ * 
+ * @param LISTA_VACINA * vacinas ponteiro para a estrutura de LISTA_VACINA
+ */
 void geraRelatorioVacinas(LISTA_VACINA * vacinas)
 {
+    // Verifica se a lista de vacinas eh vazia
     if ( vacinas->pos_livre == 0 ) {
         printf("Lista de vacinas esta vazia, registre pelo menos uma vacina.\n");
         return;
@@ -9,8 +15,8 @@ void geraRelatorioVacinas(LISTA_VACINA * vacinas)
 
     printf("-------------------------------- RELATORIO VACINAS --------------------------------\n\n");
 
+    // Percorre todos os registros de vacinas
     for ( i = 0; i < vacinas->pos_livre; i++ ) {
-
         printf("Nome da vacina: %s\n", vacinas->item[i].nome);
         printf("Numero de doses no estoque: %d\n", vacinas->item[i].estoque);
         printf("\n");
@@ -19,8 +25,14 @@ void geraRelatorioVacinas(LISTA_VACINA * vacinas)
     printf("\n");
 }
 
+/**
+ * Imprime o relatorio de vacinados com a primeira dose
+ * 
+ * @param LISTA_VACINACAO * vacinacao ponteiro para a estrutura de LISTA_VACINACAO
+ */
 void geraRelatorioVacinadoDose1(LISTA_VACINACAO * vacinacao)
 {
+    // Verifica se a lista de vacinacao eh vazia
     if ( vacinacao->pos_livre == 0 ) {
         printf("Lista de vacinacao esta vazia, registre pelo menos uma vacinacao.\n");
         return;
@@ -29,6 +41,7 @@ void geraRelatorioVacinadoDose1(LISTA_VACINACAO * vacinacao)
     printf("-------------------------------- RELATORIO DE PESSOAS QUE VACINOU COM A PRIMEIRA DOSE --------------------------------\n\n");
 
     int i;
+    // Percorre todos os registros de vacinacao
     for ( i = 0; i < vacinacao->pos_livre; i++ ) {
         if ( vacinacao->item[i].dose == 1 ) {
             printf("Nome: %s\n", vacinacao->item[i].nome_pessoa);
@@ -40,8 +53,14 @@ void geraRelatorioVacinadoDose1(LISTA_VACINACAO * vacinacao)
     printf("\n");
 }
 
+/**
+ * Imprime o relatorio de vacinados com a segunda dose
+ * 
+ * @param LISTA_VACINACAO * vacinacao ponteiro para a estrutura de LISTA_VACINACAO
+ */
 void geraRelatorioVacinadoDose2(LISTA_VACINACAO * vacinacao)
 {
+    // Verifica se a lista de vacinacao eh vazia
     if ( vacinacao->pos_livre == 0 ) {
         printf("Lista de vacinacao esta vazia, registre pelo menos uma vacinacao.\n");
         return;
@@ -50,6 +69,7 @@ void geraRelatorioVacinadoDose2(LISTA_VACINACAO * vacinacao)
     printf("-------------------------------- RELATORIO DE PESSOAS QUE VACINOU COM A SEGUNDA DOSE --------------------------------\n\n");
 
     int i;
+    // Percorre todos os registros de vacinacao
     for ( i = 0; i < vacinacao->pos_livre; i++ ) {
         if ( vacinacao->item[i].dose == 2 ) {
             printf("Nome: %s\n", vacinacao->item[i].nome_pessoa);
@@ -61,8 +81,14 @@ void geraRelatorioVacinadoDose2(LISTA_VACINACAO * vacinacao)
     printf("\n");
 }
 
+/**
+ * Imprime o relatorio de nao vacinados, ordenados pelo grupo de prioridade
+ * 
+ * @param LISTA * l ponteiro para a estrutura de LISTA de pessoas
+ */
 void geraRelatorioNaoVacinados (LISTA *l) {
 
+    // Verifica se a lista de pessoas esta vazia
     if ( l->pos_livre == 0 ) {
         printf("Lista de pessoas esta vazia, registre pelo menos uma pessoa.\n");
         return;
@@ -72,7 +98,7 @@ void geraRelatorioNaoVacinados (LISTA *l) {
 
     printf("---------------------------- RELATORIO NAO VACINADOS ------------------------------\n\n");
     printf("Grupo prioriatario 1:\n");
-    for(i=0; i < l->pos_livre; i++) {
+    for ( i=0; i < l->pos_livre; i++ ) {
         if ( foundVacinacaoByCpf(l, l->item[i].cpf) ) {
             if( l->item[i].prioridade == 1)
                 printf("'%s' do CPF: '%s' nao foi vacinado(a)\n", l->item[i].nome, l->item[i].cpf);
@@ -81,7 +107,7 @@ void geraRelatorioNaoVacinados (LISTA *l) {
 
     printf("\n---------------------------------------------------------------------------------\n");
     printf("Grupo prioriatario 2:\n");
-    for(i=0; i < l->pos_livre; i++) {
+    for ( i=0; i < l->pos_livre; i++ ) {
         if ( foundVacinacaoByCpf(l, l->item[i].cpf) ) {
             if( l->item[i].prioridade == 2)
                 printf("'%s' do CPF: '%s' nao foi vacinado(a)\n", l->item[i].nome, l->item[i].cpf);
@@ -90,7 +116,7 @@ void geraRelatorioNaoVacinados (LISTA *l) {
 
     printf("\n---------------------------------------------------------------------------------\n");
     printf("Grupo prioriatario 3:\n");
-    for(i=0; i < l->pos_livre; i++) {
+    for ( i=0; i < l->pos_livre; i++ ) {
         if ( foundVacinacaoByCpf(l, l->item[i].cpf) ) {
             if( l->item[i].prioridade == 3)
                 printf("'%s' do CPF: '%s' nao foi vacinado(a)\n", l->item[i].nome, l->item[i].cpf);
@@ -99,7 +125,7 @@ void geraRelatorioNaoVacinados (LISTA *l) {
 
     printf("\n---------------------------------------------------------------------------------\n");
     printf("Grupo prioriatario 4:\n");
-    for(i=0; i < l->pos_livre; i++) {
+    for ( i=0; i < l->pos_livre; i++ ) {
         if ( foundVacinacaoByCpf(l, l->item[i].cpf) ) {
             if( l->item[i].prioridade == 4)
                 printf("'%s' do CPF: '%s' nao foi vacinado(a)\n", l->item[i].nome, l->item[i].cpf);
@@ -108,7 +134,7 @@ void geraRelatorioNaoVacinados (LISTA *l) {
 
     printf("\n---------------------------------------------------------------------------------\n");
     printf("Grupo prioriatario 5:\n");
-    for(i=0; i < l->pos_livre; i++) {
+    for ( i=0; i < l->pos_livre; i++ ) {
         if ( foundVacinacaoByCpf(l, l->item[i].cpf) ) {
             if( l->item[i].prioridade == 5)
                 printf("'%s' do CPF: '%s' nao foi vacinado(a)\n", l->item[i].nome, l->item[i].cpf);
@@ -117,8 +143,14 @@ void geraRelatorioNaoVacinados (LISTA *l) {
     printf("\n");
 }
 
+/**
+ * Imprime o relatorio numero de habitantes por grupo prioritario
+ * 
+ * @param LISTA * l ponteiro para a estrutura de LISTA de pessoas
+ */
 void geraRelatorioPrioritario (LISTA *l) {
 
+    // Verifica se a lista de pessoas esta vazia
     if ( l->pos_livre == 0 ) {
         printf("Lista de pessoas esta vazia, registre pelo menos uma pessoa.\n");
         return;
