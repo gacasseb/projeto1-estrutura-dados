@@ -48,6 +48,7 @@ int main()
         // printf("---------- VISUALIZAR ----------\n");
         printf("6 - Relatorios\n");
         printf("7 - Visualizar\n");
+        printf("8 - Registrar pessoa por arquivo\n");
         printf("\n");
 
         scanf("%c", &entrada);
@@ -83,6 +84,10 @@ int main()
 
         if ( entrada == '6' ) {
             relatorios(vacinas);
+        }
+        
+        if ( entrada == '8' ) {
+            inserePessoaArquivo(povo);
         }
     }
 
