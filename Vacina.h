@@ -78,6 +78,16 @@ int pushVacina(LISTA_VACINA *l, VACINA v) {
     }
 }
 
+/**
+ *  Procura por uma vacina registrada pelo nome
+ *
+ *  @param LISTA_VACINA Lista de vacinas a ser procurada
+ *  @param nome Nome a ser procurado na lista
+ *
+ *  @return A posiçao da vacina na lista se for encontrada
+ **/
+
+
 int foundVacinaByName( LISTA_VACINA *l, char *nome ) {
     if ( isEmptyVacinas(l) ) {
         return -1;
@@ -94,6 +104,13 @@ int foundVacinaByName( LISTA_VACINA *l, char *nome ) {
     return pos;
 }
 
+/**
+ *  Altera estoque de vacinas
+ *
+ *  @param LISTA_VACINA Lista de vacinas a ser alterada
+ *
+ **/
+
 void alteraEstoque( LISTA_VACINA *l )
 {
     char nome[255];
@@ -109,7 +126,7 @@ void alteraEstoque( LISTA_VACINA *l )
     if ( pos_vacina >= 0 ) {
 
         int estoque;
-        // Faz a inserção da idade
+        // Faz a inserção do estoque
         printf("Insira o estoque da vacina em digitos\n");
         scanf("%d", &estoque);
         while( ! validaEstoqueVacina(estoque) ) {
@@ -180,6 +197,13 @@ int isEmptyVacinas(LISTA_VACINA *l) {
     return 0;
 }
 
+/**
+ *  Valida o nome de uma vacina
+ *
+ *  @param nome Nome a ser validado
+ *
+ *  @return int 1 se for valido
+ **/
 int validaNomeVacina(char *nome)
 {
     if ( nome[0] == '\0' ) return 0;

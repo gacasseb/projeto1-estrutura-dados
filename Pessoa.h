@@ -149,14 +149,13 @@ char *rstr (char *str, char const *delim)
 void inserePessoaArquivo(LISTA *l) {
     FILE* f;
     char path[255];
-    char idade[10];
-    char prioridade[10];
 
     //Scaneia o caminho do arquivo
     printf("Entre com o caminho do arquivo: ");
     gets(path);
     f = fopen(path, "r");
 
+    //Verifica se foi possivel abrir o arquivo
     if(f == NULL) {
         printf("Nao foi possivel abrir o arquivo\n");
     }
@@ -168,8 +167,10 @@ void inserePessoaArquivo(LISTA *l) {
         char delim[] = ";";
         char *ptr;
 
+        //Scaneia linha por linha do txt
         fgets(str, 1000, f);
 
+        //Insere todas as informaçoes 
         ptr = rstr(str, delim);
         strcpy(pessoa.nome, ptr);
 
@@ -197,6 +198,7 @@ void inserePessoaArquivo(LISTA *l) {
         ptr = rstr(NULL, delim);
         pessoa.prioridade = atoi(ptr);
 
+        //Valida todas as informaçoes
         if(!validaNome(pessoa.nome)) {
             printf("Pessoa do CPF: '%s' nao foi registrada(Nome Invalido '%s')\n", pessoa.cpf, pessoa.nome);
             continue;
