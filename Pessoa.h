@@ -3,7 +3,7 @@
 typedef struct PESSOA {
 
     char nome[255];
-    char sexo;
+    char sexo[2];
     char rg[15];
     char cpf[15];
     char telefone[15];
@@ -19,6 +19,55 @@ typedef struct Lista {
     int pos_livre;
 } LISTA;
 
+void inserePessoaArquivo(LISTA *l) {
+    FILE* f;
+    char path[255];
+
+    scanf("%s", &path);
+    f = fopen(path, "r");
+
+    if(f == NULL) {
+        printf("Nao foi possivel abrir o arquivo\n");
+    }
+
+    while(!feof(f)) {
+        char str[255];
+        char delim[] = ";";
+        char *ptr;
+
+        fscanf(f, "%s", &str);
+
+        ptr = strtok(str, delim);
+        strcpy(pessoa.nome, ptr);
+
+        ptr = strtok(NULL, delim);
+        pessoa.idade = atoi(ptr);
+
+        ptr = strtok(NULL, delim);
+        strcpy(pessoa.sexo, ptr);
+
+        ptr = strtok(NULL, delim);
+        strcpy(pessoa.rg, ptr);
+
+        ptr = strtok(NULL, delim);
+        strcpy(pessoa.cpf, ptr);
+
+        ptr = strtok(NULL, delim);
+        strcpy(pessoa.telefone, ptr);
+
+        ptr = strtok(NULL, delim);
+        strcpy(pessoa.endereco, ptr);
+
+        ptr = strtok(NULL, delim);
+        strcpy(pessoa.profissao, ptr);
+
+        ptr = strtok(NULL, delim);
+        pessoa.prioridade = atoi(ptr);
+
+        push(l, pessoa);
+    }
+
+}
 
 /**
 * Insere o registro de uma pessoa a partir de inputs do usuario no final do array Pessoa
