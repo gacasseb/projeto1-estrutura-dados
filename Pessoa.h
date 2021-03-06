@@ -145,8 +145,11 @@ char *rstr (char *str, char const *delim)
 
 /**
 * Insere o registro de uma ou mais pessoas a partir de um arquivo texto
+*
+* @param LISTA *l ponteiro para estrutura de lista de pessoas
 **/
 void inserePessoaArquivo(LISTA *l) {
+
     FILE* f;
     char path[255];
     char idade[10];
@@ -161,8 +164,8 @@ void inserePessoaArquivo(LISTA *l) {
         printf("Nao foi possivel abrir o arquivo\n");
     }
 
-
     while(!feof(f)) {
+        
         PESSOA pessoa;
         char str[255];
         char delim[] = ";";

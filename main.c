@@ -35,18 +35,13 @@ int main()
 
         // Imprime o menu
         printf("0 - Sair\n");
-        // printf("---------- PESSOAS ----------\n");
         printf("1 - Registrar uma pessoa\n");
         printf("2 - Registrar pessoa por arquivo\n");
         printf("3 - Remover uma pessoa\n");
-        // printf("------ GRUPO DE PRIORIDADES ------\n");
         printf("4 - Liberar grupo de prioridade\n");
-        // printf("---------- VACINA ----------\n");
         printf("5 - Registrar uma vacina\n");
         printf("6 - Alterar estoque de uma vacina\n");
-        // printf("---------- VACINACAO ----------\n");
         printf("7 - Registrar uma vacinacao\n");
-        // printf("---------- VISUALIZAR ----------\n");
         printf("8 - Relatorios\n");
         printf("9 - Visualizar\n");
         printf("\n");
@@ -99,7 +94,14 @@ int main()
     return 1;
 }
 
-relatorios(LISTA_VACINA * lista_vacinas, LISTA_VACINACAO * lista_vacinacao, LISTA * lista_pessoas)
+/**
+ * Gerencia o menu de relatorios
+ * 
+ * @param LISTA_VACINA lista_vacinas ponteiro para a lista de vacinas
+ * @param LISTA_VACINACAO lista_vacinas ponteiro para a lista de vacinacao
+ * @param LISTA lista_vacinas ponteiro para a lista de pessoas
+ */
+void relatorios(LISTA_VACINA * lista_vacinas, LISTA_VACINACAO * lista_vacinacao, LISTA * lista_pessoas)
 {
     printf("\n");
     printf("---------------------------------------- RELATORIOS ----------------------------------------\n\n");
@@ -142,6 +144,12 @@ relatorios(LISTA_VACINA * lista_vacinas, LISTA_VACINACAO * lista_vacinacao, LIST
     }
 }
 
+/**
+ * Gerencia o menu visualizar
+ * 
+ * @param LISTA povo lista_vacinas ponteiro para a lista de pessoas
+ * @param LISTA_VACINA lista_vacinas ponteiro para a lista de vacinas
+ */
 visualizar(LISTA *povo, LISTA_VACINA * vacinas)
 {
     char entrada;
