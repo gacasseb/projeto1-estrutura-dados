@@ -52,10 +52,10 @@ void inserePessoa(LISTA *l)
 
     // Faz a inserção do sexo
     printf("Insira o sexo\n");
-    scanf(" %c", &pessoa.sexo);
+    scanf(" %s", &pessoa.sexo);
     while( ! validaSexo(pessoa.sexo) ) {
         printf("Insira um sexo valido\n");
-        scanf(" %c", &pessoa.sexo);
+        scanf(" %s", &pessoa.sexo);
     }
     getchar();
 
