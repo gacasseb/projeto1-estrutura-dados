@@ -60,3 +60,85 @@ void geraRelatorioVacinadoDose2(LISTA_VACINACAO * vacinacao)
     printf("\n");
     printf("\n");
 }
+
+void geraRelatorioNaoVacinados (LISTA *l) {
+
+    if ( l->pos_livre == 0 ) {
+        printf("Lista de pessoas esta vazia, registre pelo menos uma pessoa.\n");
+        return;
+    }
+
+    int i;
+
+    printf("---------------------------- RELATORIO NAO VACINADOS ------------------------------\n\n");
+    printf("Grupo prioriatario 1:\n");
+    for(i=0; i < l->pos_livre; i++) {
+        if ( foundVacinacaoByCpf(l, l->item[i].cpf) ) {
+            if( l->item[i].prioridade == 1)
+                printf("'%s' do CPF: '%s' nao foi vacinado(a)\n", l->item[i].nome, l->item[i].cpf);
+        }
+    }
+
+    printf("\n---------------------------------------------------------------------------------\n");
+    printf("Grupo prioriatario 2:\n");
+    for(i=0; i < l->pos_livre; i++) {
+        if ( foundVacinacaoByCpf(l, l->item[i].cpf) ) {
+            if( l->item[i].prioridade == 2)
+                printf("'%s' do CPF: '%s' nao foi vacinado(a)\n", l->item[i].nome, l->item[i].cpf);
+        }
+    }
+
+    printf("\n---------------------------------------------------------------------------------\n");
+    printf("Grupo prioriatario 3:\n");
+    for(i=0; i < l->pos_livre; i++) {
+        if ( foundVacinacaoByCpf(l, l->item[i].cpf) ) {
+            if( l->item[i].prioridade == 3)
+                printf("'%s' do CPF: '%s' nao foi vacinado(a)\n", l->item[i].nome, l->item[i].cpf);
+        }
+    }
+
+    printf("\n---------------------------------------------------------------------------------\n");
+    printf("Grupo prioriatario 4:\n");
+    for(i=0; i < l->pos_livre; i++) {
+        if ( foundVacinacaoByCpf(l, l->item[i].cpf) ) {
+            if( l->item[i].prioridade == 4)
+                printf("'%s' do CPF: '%s' nao foi vacinado(a)\n", l->item[i].nome, l->item[i].cpf);
+        }
+    }
+
+    printf("\n---------------------------------------------------------------------------------\n");
+    printf("Grupo prioriatario 5:\n");
+    for(i=0; i < l->pos_livre; i++) {
+        if ( foundVacinacaoByCpf(l, l->item[i].cpf) ) {
+            if( l->item[i].prioridade == 5)
+                printf("'%s' do CPF: '%s' nao foi vacinado(a)\n", l->item[i].nome, l->item[i].cpf);
+            }
+    }
+    printf("\n");
+}
+
+void geraRelatorioPrioritario (LISTA *l) {
+
+    if ( l->pos_livre == 0 ) {
+        printf("Lista de pessoas esta vazia, registre pelo menos uma pessoa.\n");
+        return;
+    }
+
+    int i, g1=0, g2=0, g3=0, g4=0, g5=0;
+
+    for(i=0; i < l->pos_livre; i++) {
+        if(l->item[i].prioridade == 1) g1++;
+        if(l->item[i].prioridade == 2) g2++;
+        if(l->item[i].prioridade == 3) g3++;
+        if(l->item[i].prioridade == 4) g4++;
+        if(l->item[i].prioridade == 5) g5++;
+    }
+
+    printf("------------------------- RELATORIO NUMERO DE HABITANTES --------------------------\n\n");
+    printf("Numero de habitantes registrados como grupo prioritario 1: %d\n", g1);
+    printf("Numero de habitantes registrados como grupo prioritario 2: %d\n", g2);
+    printf("Numero de habitantes registrados como grupo prioritario 3: %d\n", g3);
+    printf("Numero de habitantes registrados como grupo prioritario 4: %d\n", g4);
+    printf("Numero de habitantes registrados como grupo prioritario 5: %d\n", g5);
+    printf("\n---------------------------------------------------------------------------------\n");
+}

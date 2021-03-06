@@ -83,9 +83,9 @@ int main()
         }
 
         if ( entrada == '6' ) {
-            relatorios(vacinas, vacinacao);
+            relatorios(vacinas, vacinacao, povo);
         }
-        
+
         if ( entrada == '8' ) {
             inserePessoaArquivo(povo);
         }
@@ -99,7 +99,7 @@ int main()
     return 1;
 }
 
-relatorios(LISTA_VACINA * lista_vacinas, LISTA_VACINACAO * lista_vacinacao)
+relatorios(LISTA_VACINA * lista_vacinas, LISTA_VACINACAO * lista_vacinacao, LISTA * lista_pessoas)
 {
     printf("\n");
     printf("---------------------------------------- RELATORIOS ----------------------------------------\n\n");
@@ -113,6 +113,9 @@ relatorios(LISTA_VACINA * lista_vacinas, LISTA_VACINACAO * lista_vacinacao)
         printf("1 - Gerar relatorio de vacinas\n");
         printf("2 - Gerar relatorio de vacinados com a primeira dose\n");
         printf("3 - Gerar relatorio de vacinados com a segunda dose\n");
+        printf("4 - Gerar relatorio de nao vacinados agrupados pelo grupo prioritario\n");
+        printf("5 - Gerar relatorio de numero de habitantes por grupo prioritario\n");
+
 
         scanf("%c", &entrada);
         getchar();
@@ -127,6 +130,12 @@ relatorios(LISTA_VACINA * lista_vacinas, LISTA_VACINACAO * lista_vacinacao)
 
         if ( entrada == '3' ) {
             geraRelatorioVacinadoDose2(lista_vacinacao);
+        }
+        if ( entrada == '4' ) {
+            geraRelatorioNaoVacinados(lista_pessoas);
+        }
+        if ( entrada == '5' ) {
+            geraRelatorioPrioritario(lista_pessoas);
         }
     }
 }
